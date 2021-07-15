@@ -218,15 +218,15 @@
         </TabControl>
 
 
-        <Button Click="Btn_Info_Click"  Content="?" Height="20" VerticalAlignment="Center" Width="18" Grid.Row="1" HorizontalAlignment="Center" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
+        <Button Click="Btn_Info_Click"  Content="?" Height="25" VerticalAlignment="Center" Width="25" Grid.Row="1" HorizontalAlignment="Center" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
             <Button.Background>
-                <SolidColorBrush Color="#FF0031B4" Opacity="0.7"/>
+                <SolidColorBrush Color="#FF7384B0" Opacity="0.7"/>
             </Button.Background>
         </Button>
 
-        <Button Click="Btn_Exit_Click"  Content="Close" Height="20" VerticalAlignment="Center" Width="44" Grid.Row="1" HorizontalAlignment="Left" Margin="128,0,0,0" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
+        <Button Click="Btn_Exit_Click"  Content="Close" Height="25" VerticalAlignment="Center" Width="60" Grid.Row="1" HorizontalAlignment="Left" Margin="128,0,20,0" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
             <Button.Background>
-                <SolidColorBrush Color="#FF931C09" Opacity="0.7"/>
+                <SolidColorBrush Color="#FF915046" Opacity="0.7"/>
             </Button.Background>
         </Button>
 
