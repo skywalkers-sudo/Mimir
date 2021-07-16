@@ -13,7 +13,6 @@
         MinWidth="1000" MinHeight="570" MaxWidth="1000" MaxHeight="570" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" 
-        Background="Black" 
         WindowStyle="SingleBorderWindow"
    
         >
@@ -135,10 +134,10 @@
 
                         <TextBlock x:Name="tb_AusgabeDBINFO" 
                                    Text="{Binding Source={x:Static p:Settings.Default}, Path=syncxml_Info, Mode=TwoWay}" 
-                                   Foreground="#FF0031B4" 
+                                   Foreground="#FF6681C9" 
                                    Width="792" Height="320" 
                                    TextWrapping="Wrap" 
-                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="13"/>
 
                     </ScrollViewer>
 
@@ -226,13 +225,13 @@
 
         <Button Click="Btn_Info_Click"  Content="?" Height="25" VerticalAlignment="Center" Width="25" Grid.Row="1" HorizontalAlignment="Center" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
             <Button.Background>
-                <SolidColorBrush Color="#FF7384B0" Opacity="0.7"/>
+                <SolidColorBrush Color="#FFC7C7C7" Opacity="0.7"/>
             </Button.Background>
         </Button>
 
-        <Button Click="Btn_Exit_Click"  Content="Close" Height="25" VerticalAlignment="Center" Width="60" Grid.Row="1" HorizontalAlignment="Left" Margin="128,0,20,0" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
+        <Button Click="Btn_Exit_Click"  Content="bye bye" Height="25" VerticalAlignment="Center" Width="60" Grid.Row="1" HorizontalAlignment="Left" Margin="128,0,20,0" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
             <Button.Background>
-                <SolidColorBrush Color="#FF915046" Opacity="0.7"/>
+                <SolidColorBrush Color="#FF992615" Opacity="0.7"/>
             </Button.Background>
         </Button>
 
