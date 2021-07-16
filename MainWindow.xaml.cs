@@ -3,6 +3,9 @@ using System.Windows;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Xml.Linq;
+using System.Xml;
+using System.Linq;
 
 namespace Mimir
 {
@@ -19,7 +22,7 @@ namespace Mimir
             InitializeComponent();
         }
 
-
+        
         #region ==============================================XML-sync==============================================
 
         // Filewatcher
@@ -78,76 +81,122 @@ namespace Mimir
                 string[] xmlListEXIST = Directory.GetFiles(ROOTXML, "*.xml");
                 int anzahlxml = xmlListEXIST.GetLength(0);
 
-                // array der ganzen .xml erstellen
-                string[] xmlList = Directory.GetFiles(ROOTXML, "*.xml");
 
-                // Pfadangabe löschen, es bleibt nur die Datei
-                string filename = null;
-                filename = Path.GetFileName(xmlList[0]);
+                while (anzahlxml != 0)
 
-                // Extension löschen (.xml)
-                char[] MyChar = { 'x', 'm', 'l', '.' };
-                string filnamewithoutExtension = filename.TrimEnd(MyChar);
-                
-                // Erstelle neue NC Nummer für XML eintrag
-                string path1 = @ROOTXML + filename;
-                string newNCNAME = filnamewithoutExtension + "000";
-
-                // stringbuilder für Info
-                StringBuilder sb = new();
-                _ = sb.Append("==========  neues Wkz gefunden " + filename + "  ==========");
-                // =======================================================================================================================================================================================
-
-
-
-
-
-
-
-
-
-
-
-                // =======================================================================================================================================================================================
-                // ================================================================================verschiebe Datei=======================================================================================
-                if (System.IO.Directory.Exists(TARGETXML))
-                 {
-                    System.IO.File.Move(xmlList[0], @TARGETXML + filename);
-                    _ = sb.Append("\n" + "File moved to: " + @TARGETXML);
-                }
-                else
                 {
-                    System.IO.Directory.CreateDirectory(@TARGETXML);
-                    System.IO.File.Move(xmlList[0], @TARGETXML + filename);
-                    _ = sb.Append("\n" + "Created Directory " + @TARGETXML + " and moved File");
+
+                    // array der ganzen .xml erstellen
+                    string[] xmlList = Directory.GetFiles(ROOTXML, "*.xml");
+
+                    // Pfadangabe löschen, es bleibt nur die Datei
+                    string filename = null;
+                    filename = Path.GetFileName(xmlList[0]);
+
+                    // Extension löschen (.xml)
+                    char[] MyChar = { 'x', 'm', 'l', '.' };
+                    string filnamewithoutExtension = filename.TrimEnd(MyChar);
+
+                    // Erstelle neue NC Nummer für XML eintrag
+                    string path1 = @ROOTXML + filename;
+                    string newNCNAME = filnamewithoutExtension + "000";
+
+                    // stringbuilder für Info
+                    StringBuilder sb = new();
+                    _ = sb.Append("==========  neues Wkz gefunden " + filename + "  ==========");
+
+
+
+
+                    // ================================================================================FEATURE 1 CHECK========================================================================================
+                    if (Properties.Settings.Default.optionsT1_Feature1_check == true)
+                    {
+                        XDocument xDoc = XDocument.Load(path1);
+
+
+
+
+
+
+
+                        XmlWriterSettings settings = new XmlWriterSettings();
+                        settings.Encoding = Encoding.UTF8;
+                        settings.Indent = true;
+                        settings.IndentChars = "\t";
+
+
+                        using (XmlWriter writer = XmlTextWriter.Create(path1, settings))
+                        {
+                            xDoc.Save(writer);
+                            //Here i also tried save without writer - xDoc.Save(path)
+                        }
+
+                    }
+
+                        // ================================================================================FEATURE 2 CHECK========================================================================================
+                        if (Properties.Settings.Default.optionsT1_Feature2_check == true)
+                    {
+
+                    }
+
+                    // ================================================================================FEATURE 3 CHECK========================================================================================
+                    if (Properties.Settings.Default.optionsT1_Feature3_check == true)
+                    {
+
+                    }
+
+                    // ================================================================================FEATURE 4 CHECK========================================================================================
+                    if (Properties.Settings.Default.optionsT1_Feature4_check == true)
+                    {
+
+                    }
+
+                    // ================================================================================FEATURE 5 CHECK========================================================================================
+                    if (Properties.Settings.Default.optionsT1_Feature5_check == true)
+                    {
+
+                    }
+
+                    // ================================================================================verschiebe Datei=======================================================================================
+                    if (System.IO.Directory.Exists(TARGETXML))
+                    {
+                        System.IO.File.Move(xmlList[0], @TARGETXML + filename);
+                        _ = sb.Append("\n" + "File moved to: " + @TARGETXML);
+                    }
+                    else
+                    {
+                        System.IO.Directory.CreateDirectory(@TARGETXML);
+                        System.IO.File.Move(xmlList[0], @TARGETXML + filename);
+                        _ = sb.Append("\n" + "Created Directory " + @TARGETXML + " and moved File");
+                    }
+
+                    // ==================================================================================== FINI =============================================================================================
+                    _ = sb.Append("\n" + "=================  Fini " + filename + "  ================");
+                    // schreibe Infos in settingsdatei (für Ausgabefenster)
+                    Properties.Settings.Default.syncxml_Info = sb.ToString();
+                    // infos in log schreiben
+                    if (Directory.Exists(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/"))
+                    {
+                        StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
+                        myWriter.WriteLine(sb.ToString());
+                        myWriter.Close(); // öffne die zu schreibende Datei
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/");
+                        StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
+                        myWriter.WriteLine(sb.ToString());
+                        myWriter.Close(); // öffne die zu schreibende Datei
+                    }
+
+                    anzahlxml--;
                 }
-                // =======================================================================================================================================================================================
-                // FINI ==================================================================================================================================================================================
-                _ = sb.Append("\n"+ "=================  Fini " + filename + "  ================");
-                // schreibe Infos in settingsdatei (für Ausgabefenster)
-                Properties.Settings.Default.syncxml_Info = sb.ToString();     
-                // infos in log schreiben
-                if (Directory.Exists(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/"))
-                {
-                    StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
-                    myWriter.WriteLine(sb.ToString());
-                    myWriter.Close(); // öffne die zu schreibende Datei
-                }
-                else
-                {
-                    Directory.CreateDirectory(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/");
-                    StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
-                    myWriter.WriteLine(sb.ToString());
-                    myWriter.Close(); // öffne die zu schreibende Datei
-                }
-                // =======================================================================================================================================================================================
-                // =======================================================================    Fehler abfangen    =========================================================================================
             }
+            // =======================================================================    Fehler abfangen    =========================================================================================
             catch (Exception u)
             {
                 _ = MessageBox.Show("" + u);
             }
-                // =======================================================================================================================================================================================
         }
 
         private void Btn_Stop_sync_Click(object sender, RoutedEventArgs e)

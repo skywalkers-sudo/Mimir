@@ -121,7 +121,7 @@ namespace Mimir.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("log")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string syncxml_Info {
             get {
                 return ((string)(this["syncxml_Info"]));

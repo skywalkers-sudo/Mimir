@@ -27,7 +27,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="syncxml_Info" Type="System.String" Scope="User">
-      <Value Profile="(Default)">log</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
