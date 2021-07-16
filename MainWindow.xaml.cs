@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Diagnostics;
 using System.IO;
-
+using System.Text;
 
 namespace Mimir
 {
@@ -23,13 +23,13 @@ namespace Mimir
         #region ==============================================XML-sync==============================================
 
         // Filewatcher
-        FileSystemWatcher watcher;
+        FileSystemWatcher FSW;
         private void Btn_Start_sync_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 // gui log leeren
-                tb_AusgabeDBINFO.Text = "";
+                Properties.Settings.Default.syncxml_Info = "";
 
                 // Buttons available
                 btn_Start_sync.IsEnabled = false;
@@ -40,20 +40,19 @@ namespace Mimir
                 string path = Mimir.Properties.Settings.Default.optionsT1_source; 
 
                 // Create a new FileSystemWatcher and set its properties.
-                watcher = new FileSystemWatcher();
-                watcher.Path = path;
-
-                /* Watch for changes in LastAccess and LastWrite times, and
-                      the renaming of files or directories. */
-                watcher.NotifyFilter = NotifyFilters.LastWrite;
+                FSW = new FileSystemWatcher();
+                FSW.Path = @path;
 
                 // Only watch text files.      
-                watcher.Filter = "*.xml*";
+                FSW.Filter = "*.xml";
 
-                // Add event handler.
-                watcher.Changed += new FileSystemEventHandler(OnChanged);
+                //FSW.Changed += new FileSystemEventHandler(FSW_Changed);
+                FSW.Created += new FileSystemEventHandler(FSW_Created);
+                //FSW.Deleted += new FileSystemEventHandler(FSW_Deleted);
+                //FSW.Renamed += new RenamedEventHandler(FSW_Renamed);
+
                 // Begin watching.      
-                watcher.EnableRaisingEvents = true;
+                FSW.EnableRaisingEvents = true;
 
                 // write Status to xaml
                 status.Content = "FILEWATCHER RUN";
@@ -68,11 +67,11 @@ namespace Mimir
 
 
         // Define the event handler.
-        private void OnChanged(object source, FileSystemEventArgs e)
+        private void FSW_Created(object source, FileSystemEventArgs e)
         {
             try
             {
-
+                // =================================================================================HEAD==============================================================================================
                 string ROOTXML = Properties.Settings.Default.optionsT1_source;       // Wurzelverzeichis der zu ladenden XML
                 string TARGETXML = Properties.Settings.Default.optionsT1_destination;   // Zielverzeichnis der zu schreibenden XML
 
@@ -94,30 +93,61 @@ namespace Mimir
                 string path1 = @ROOTXML + filename;
                 string newNCNAME = filnamewithoutExtension + "000";
 
+                // stringbuilder für Info
+                StringBuilder sb = new();
+                _ = sb.Append("==========  neues Wkz gefunden " + filename + "  ==========");
+                // =======================================================================================================================================================================================
 
 
-                //--------------------------------------------------------verschiebe Datei---------------------------------------------------
 
+
+
+
+
+
+
+
+
+                // =======================================================================================================================================================================================
+                // ================================================================================verschiebe Datei=======================================================================================
                 if (System.IO.Directory.Exists(TARGETXML))
                  {
                     System.IO.File.Move(xmlList[0], @TARGETXML + filename);
-                    tb_AusgabeDBINFO.Text = (tb_AusgabeDBINFO.Text + "\n" + "File moved to: " + @TARGETXML);
+                    _ = sb.Append("\n" + "File moved to: " + @TARGETXML);
                 }
                 else
                 {
                     System.IO.Directory.CreateDirectory(@TARGETXML);
                     System.IO.File.Move(xmlList[0], @TARGETXML + filename);
-                    tb_AusgabeDBINFO.Text = (tb_AusgabeDBINFO.Text + "\n" + "Created Directory " + @TARGETXML + " and moved File");
+                    _ = sb.Append("\n" + "Created Directory " + @TARGETXML + " and moved File");
                 }
-                
-
-
-            // Fehler abfangen
+                // =======================================================================================================================================================================================
+                // FINI ==================================================================================================================================================================================
+                _ = sb.Append("\n"+ "=================  Fini " + filename + "  ================");
+                // schreibe Infos in settingsdatei (für Ausgabefenster)
+                Properties.Settings.Default.syncxml_Info = sb.ToString();     
+                // infos in log schreiben
+                if (Directory.Exists(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/"))
+                {
+                    StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
+                    myWriter.WriteLine(sb.ToString());
+                    myWriter.Close(); // öffne die zu schreibende Datei
+                }
+                else
+                {
+                    Directory.CreateDirectory(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/");
+                    StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
+                    myWriter.WriteLine(sb.ToString());
+                    myWriter.Close(); // öffne die zu schreibende Datei
+                }
+                // =======================================================================================================================================================================================
+                // =======================================================================    Fehler abfangen    =========================================================================================
             }
             catch (Exception u)
             {
-                MessageBox.Show("" + u);
+                _ = MessageBox.Show("" + u);
             }
+                // =======================================================================================================================================================================================
         }
 
         private void Btn_Stop_sync_Click(object sender, RoutedEventArgs e)
@@ -125,7 +155,7 @@ namespace Mimir
             try
             {
                 // Begin watching.      
-                watcher.EnableRaisingEvents = false;
+                FSW.EnableRaisingEvents = false;
 
                 // Buttons available
                 btn_Start_sync.IsEnabled = true;

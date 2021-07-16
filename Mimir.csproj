@@ -32,4 +32,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="_files\log_sync_xml\" />
+  </ItemGroup>
+
 </Project>

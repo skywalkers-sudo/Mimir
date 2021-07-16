@@ -26,5 +26,8 @@
     <Setting Name="optionsT1_Feature6_check" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="syncxml_Info" Type="System.String" Scope="User">
+      <Value Profile="(Default)">log</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

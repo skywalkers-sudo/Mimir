@@ -118,5 +118,17 @@ namespace Mimir.Properties {
                 this["optionsT1_Feature6_check"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("log")]
+        public string syncxml_Info {
+            get {
+                return ((string)(this["syncxml_Info"]));
+            }
+            set {
+                this["syncxml_Info"] = value;
+            }
+        }
     }
 }

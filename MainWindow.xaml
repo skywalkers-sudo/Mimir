@@ -3,11 +3,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mimir"
+        xmlns:p="clr-namespace:Mimir.Properties"
         mc:Ignorable="d"
         Title="Mimir"
         Height="458"
         Width="1000"
-
         Foreground="{x:Null}" 
         MinWidth="1000" MinHeight="570" MaxWidth="1000" MaxHeight="570" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
@@ -128,7 +129,7 @@
                                     Width="808" Height="300">
 
                         <TextBlock x:Name="tb_AusgabeDBINFO" 
-                                   Text="Log" 
+                                   Text="{Binding Source={x:Static p:Settings.Default}, Path=syncxml_Info, Mode=TwoWay}" 
                                    Foreground="#FF0031B4" 
                                    Width="792" Height="320" 
                                    TextWrapping="Wrap" 
