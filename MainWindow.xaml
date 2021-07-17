@@ -13,8 +13,7 @@
         MinWidth="1000" MinHeight="570" MaxWidth="1000" MaxHeight="570" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" 
-        WindowStyle="SingleBorderWindow"
-   
+        WindowStyle="ThreeDBorderWindow"
         >
 
 

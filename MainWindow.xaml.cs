@@ -3,9 +3,8 @@ using System.Windows;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Xml.Linq;
 using System.Xml;
-using System.Linq;
+using System.Reflection;
 
 namespace Mimir
 {
@@ -13,7 +12,6 @@ namespace Mimir
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
     /// 
-
 
     public partial class MainWindow : Window
     {
@@ -23,7 +21,7 @@ namespace Mimir
         }
 
         
-        #region ==============================================XML-sync==============================================
+        #region ==============================================XML-sync================================================
 
         // Filewatcher
         FileSystemWatcher FSW;
@@ -445,7 +443,6 @@ namespace Mimir
         #endregion
 
 
-
         #region ==============================================running-VC==============================================
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -686,6 +683,10 @@ namespace Mimir
         #region ==============================================MAINWINDOW==============================================
         private void Btn_Info_Click(object sender, RoutedEventArgs e)
         {
+            
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Properties.Settings.Default.Version = ("Version: " + version);
+
             var window = new Info
             {
                 Owner = this                         // Macht das Fenster Hauptfenster zum Besitzer -- wird benoetigt um das Fenster mittig des Hauptfensters angezeigt -- in WPF Center Owner einstellen

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Mimir": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

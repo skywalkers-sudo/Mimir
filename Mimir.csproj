@@ -5,6 +5,11 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>Mimir.App</StartupObject>
+    <Authors>Stephan Nirschl</Authors>
+    <Company />
+    <NeutralLanguage>de-DE</NeutralLanguage>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -39,6 +44,12 @@
 
   <ItemGroup>
     <Folder Include="_files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Dictionary1.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
 
 </Project>
