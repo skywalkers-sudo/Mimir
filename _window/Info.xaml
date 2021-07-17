@@ -28,7 +28,7 @@
             <ColumnDefinition Width="200*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox  Name="Description" Text="Mimir" Foreground="Black" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Normal" HorizontalAlignment="Center" FontSize="25" TextDecorations="Underline" FontFamily="Bahnschrift SemiBold" BorderBrush="{x:Null}" IsReadOnly="True" Background="{x:Null}" SelectionBrush="{x:Null}" IsEnabled="False"  />
+        <TextBox  Name="Description" Text="MIMIR" Foreground="Black" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Normal" HorizontalAlignment="Center" FontSize="25" TextDecorations="Underline" FontFamily="Bahnschrift SemiBold" BorderBrush="{x:Null}" IsReadOnly="True" Background="{x:Null}" SelectionBrush="{x:Null}" IsEnabled="False"  />
         <TextBox  Name="Description1" Text="{Binding Source={x:Static p:Settings.Default}, Path=Version, Mode=TwoWay}" Foreground="Black" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Normal" HorizontalAlignment="Center" FontSize="15" TextDecorations="{x:Null}" FontFamily="Bahnschrift SemiBold" VerticalAlignment="Bottom" BorderBrush="{x:Null}" IsReadOnly="True" SelectionBrush="{x:Null}" Background="{x:Null}" IsEnabled="False" />
         <TextBox  Name="Description2" Text="developed by coder bude Nitschko" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="15" FontFamily="Bahnschrift SemiBold" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Foreground="Black" IsReadOnly="True" SelectionBrush="{x:Null}" Background="{x:Null}" IsEnabled="False" />
 

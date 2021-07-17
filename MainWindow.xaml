@@ -6,21 +6,103 @@
         xmlns:local="clr-namespace:Mimir"
         xmlns:p="clr-namespace:Mimir.Properties"
         mc:Ignorable="d"
-        Title="Mimir"
+        Title="MIMIR"
         Height="458"
         Width="1000"
         Foreground="{x:Null}" 
-        MinWidth="1000" MinHeight="570" MaxWidth="1000" MaxHeight="570" 
+        MinWidth="1000" MinHeight="600" MaxWidth="1000" MaxHeight="600" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" 
-        WindowStyle="ThreeDBorderWindow"
+        WindowStyle="ThreeDBorderWindow" Background="Black"
         >
 
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="870"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="568"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid.Background>
+                <ImageBrush ImageSource="/_Images/wally1.jpg"/>
+            </Grid.Background>
+
+            <Frame x:Name="MAIN1" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,105,0" 
+                   
+                   
+                   ></Frame>
+
+
+        </Grid>
+        
+        
+        <Grid x:Name="Main" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF232323" Opacity="0.5"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+
+
+
+            <!-- ______________________ BUTTONS MAINWINDOW ______________________   -->
+
+            <Button Click="Button_T1"  
+                    Content="sync_XML" 
+                    Grid.Row="0"
+                    BorderBrush="{x:Null}" Foreground="#FF858383" 
+                    FontWeight="Bold" 
+                    Margin="5,2,5,2" Background="{x:Null}" />
+
+            <Button Click="Button_T2"  
+                    Content="scanVC" 
+                    Grid.Row="1"
+                    BorderBrush="{x:Null}" Foreground="#FF858383" 
+                    FontWeight="Bold" 
+                    Margin="5,2,5,2" Background="{x:Null}" />
+
+            <Button Click="Btn_Info_Click"  
+                    Content="ueber" 
+                    Grid.Row="8"
+                    BorderBrush="{x:Null}" Foreground="#FF858383" 
+                    FontWeight="Bold" 
+                    Margin="5,2,5,2" Background="{x:Null}" />
+
+            <Button Click="Btn_Exit_Click"  
+                    Content="bye bye" 
+                    Grid.Row="9"
+                    BorderBrush="{x:Null}" Foreground="#FFA04646" 
+                    FontWeight="Bold"
+                    Margin="5,2,5,2" Background="{x:Null}"/>
+            <!-- _________________________________________________________________   -->
+
+
+        </Grid>
 
 
 
 
+
+    </Grid>
+
+
+    <!--
+    
 
 
     <Grid Opacity="0.9" Margin="0,0,0,0">
@@ -235,5 +317,8 @@
         </Button>
 
     </Grid>
+    
+    -->
+
 </Window>
 
