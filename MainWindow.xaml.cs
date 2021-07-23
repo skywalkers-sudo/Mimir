@@ -23,6 +23,25 @@ namespace Mimir
         }
 
 
+        #region ==============================================MAINWINDOW==============================================
+        private void Btn_Info_Click(object sender, RoutedEventArgs e)
+        {
+
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Properties.Settings.Default.Version = ("Version: " + version);
+
+        }
+        private void Btn_Exit_Click(object sender, RoutedEventArgs u)
+        {
+            Properties.Settings.Default.Save();                              // Einstellungen sichern
+            Environment.Exit(0);                                                   // Fenster schließen über MEnue
+        }
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            Properties.Settings.Default.Save();                              // Einstellungen sichern
+            base.OnClosing(e);                                               // Fenster schließen
+        }
+        #endregion
 
 
         #region ==============================================XML-sync================================================
@@ -690,30 +709,19 @@ namespace Mimir
                 tb_AusgabeVCINFO.Text = " ";
             }
         }
+
+
+
+
+
         #endregion
 
-
-        #region ==============================================MAINWINDOW==============================================
-        private void Btn_Info_Click(object sender, RoutedEventArgs e)
+        private void Test_Click(object sender, RoutedEventArgs e)
         {
-            
-            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Properties.Settings.Default.Version = ("Version: " + version);
+
+
+
 
         }
-        private void Btn_Exit_Click(object sender, RoutedEventArgs u)
-        {
-            Properties.Settings.Default.Save();                              // Einstellungen sichern
-            Environment.Exit(0);                                                   // Fenster schließen über MEnue
-        }
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            Properties.Settings.Default.Save();                              // Einstellungen sichern
-            base.OnClosing(e);                                               // Fenster schließen
-        }
-        #endregion
-
-
-
     }
 }

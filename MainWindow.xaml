@@ -43,7 +43,7 @@
             <TabItem
                 Header="START" 
                 Name="T1" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2"
                 >
@@ -95,7 +95,7 @@
             <TabItem
                 Header="interf. TDB" 
                 Name="T2" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 HorizontalAlignment="Center" 
                 Margin="2,2,2,2" 
                 
@@ -182,7 +182,7 @@
 
             <TabItem Header="scan_Vc" 
                      Name="T3" 
-                     Height="30" Width="80" 
+                     Height="30" Width="100" 
                      HorizontalAlignment="Center" 
                      Margin="2,2,2,2" 
                      >
@@ -249,7 +249,7 @@
             <TabItem
                 Header="" 
                 Name="T4" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -260,10 +260,21 @@
             <TabItem
                 Header="TESTSPACE" 
                 Name="T5" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" 
                 >
+
+                <Grid>
+                    <Button x:Name="test" 
+                            Content="TEST"
+                            Click="Test_Click" 
+                            Width="100" Height="20" 
+                            Margin="646,53,126,471"
+                            >                
+                    </Button>
+                    
+                </Grid>
 
 
             </TabItem>
@@ -272,7 +283,7 @@
             <TabItem
                 Header="" 
                 Name="T6" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -283,7 +294,7 @@
             <TabItem
                 Header="" 
                 Name="T7" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -294,7 +305,7 @@
             <TabItem
                 Header="" 
                 Name="T8" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -305,7 +316,7 @@
             <TabItem
                 Header="" 
                 Name="T9" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -316,7 +327,7 @@
             <TabItem
                 Header="" 
                 Name="T10" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -327,7 +338,7 @@
             <TabItem
                 Header="" 
                 Name="T11" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -338,7 +349,7 @@
             <TabItem
                 Header="" 
                 Name="T12" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -349,7 +360,7 @@
             <TabItem
                 Header="" 
                 Name="T13" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -360,7 +371,7 @@
             <TabItem
                 Header="" 
                 Name="T14" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -371,7 +382,7 @@
             <TabItem
                 Header="" 
                 Name="T15" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -382,7 +393,7 @@
             <TabItem
                 Header="" 
                 Name="T16" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" IsEnabled="False" 
                 >
@@ -393,7 +404,7 @@
             <TabItem
                 Header="HILFE" 
                 Name="T19" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" 
                 >
@@ -406,7 +417,7 @@
             <TabItem
                 Header="BEENDEN" 
                 Name="T20" 
-                Height="30" Width="80" 
+                Height="30" Width="100" 
                 VerticalAlignment="Center"
                 Margin="2,2,2,2" 
                 >
