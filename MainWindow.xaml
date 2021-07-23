@@ -10,150 +10,102 @@
         Height="458"
         Width="1000"
         Foreground="{x:Null}" 
-        MinWidth="1000" MinHeight="600" MaxWidth="1000" MaxHeight="600" 
+        MinWidth="1000" MinHeight="590" MaxWidth="1000" MaxHeight="590" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" 
-        WindowStyle="ThreeDBorderWindow" Background="Black"
+        WindowStyle="SingleBorderWindow" Background="#FF4D5756"
+        
         >
 
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="870"/>
-            <ColumnDefinition Width="100"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0"/>
-            <RowDefinition Height="568"/>
-        </Grid.RowDefinitions>
-        
-        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-            <Grid.Background>
-                <ImageBrush ImageSource="/_Images/wally1.jpg"/>
-            </Grid.Background>
 
-            <Frame x:Name="MAIN1" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,105,0" 
-                   
-                   
-                   ></Frame>
-
-
-        </Grid>
-        
-        
-        <Grid x:Name="Main" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF232323" Opacity="0.5"/>
-            </Grid.Background>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-            </Grid.RowDefinitions>
-
-
-
-            <!-- ______________________ BUTTONS MAINWINDOW ______________________   -->
-
-            <Button Click="Button_T1"  
-                    Content="sync_XML" 
-                    Grid.Row="0"
-                    BorderBrush="{x:Null}" Foreground="#FF858383" 
-                    FontWeight="Bold" 
-                    Margin="5,2,5,2" Background="{x:Null}" />
-
-            <Button Click="Button_T2"  
-                    Content="scanVC" 
-                    Grid.Row="1"
-                    BorderBrush="{x:Null}" Foreground="#FF858383" 
-                    FontWeight="Bold" 
-                    Margin="5,2,5,2" Background="{x:Null}" />
-
-            <Button Click="Btn_Info_Click"  
-                    Content="ueber" 
-                    Grid.Row="8"
-                    BorderBrush="{x:Null}" Foreground="#FF858383" 
-                    FontWeight="Bold" 
-                    Margin="5,2,5,2" Background="{x:Null}" />
-
-            <Button Click="Btn_Exit_Click"  
-                    Content="bye bye" 
-                    Grid.Row="9"
-                    BorderBrush="{x:Null}" Foreground="#FFA04646" 
-                    FontWeight="Bold"
-                    Margin="5,2,5,2" Background="{x:Null}"/>
-            <!-- _________________________________________________________________   -->
-
-
-        </Grid>
-
-
-
-
-
-    </Grid>
-
-
-    <!--
-    
 
 
     <Grid Opacity="0.9" Margin="0,0,0,0">
-
-        <Grid.Background>
-            <ImageBrush ImageSource="/_Images/wally.jpg"/>
-        </Grid.Background>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="480"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="264"/>
-            <ColumnDefinition Width="501"/>
-            <ColumnDefinition Width="23"/>
-            <ColumnDefinition Width="212"/>
+            <ColumnDefinition Width="873*"/>
+            <ColumnDefinition Width="127*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.Background>
+            <ImageBrush ImageSource="/_Images/wally1.jpg"/>
+        </Grid.Background>
 
-        <TabControl x:Name="Tabs" TabStripPlacement="Right"  HorizontalAlignment="Left" BorderBrush="{x:Null}" Foreground="{x:Null}" Padding="20" OpacityMask="#FF994141" Margin="10,10,0,0" Background="{x:Null}" Height="500" VerticalAlignment="Top" Grid.Row="0" Width="950" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <TabControl.Resources>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="HeaderTemplate">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <ContentPresenter Content="{TemplateBinding Content}">
-                                    <ContentPresenter.LayoutTransform>
-                                        <RotateTransform Angle="-2" />
-                                    </ContentPresenter.LayoutTransform>
-                                </ContentPresenter>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Padding" Value="5" />
-                </Style>
-            </TabControl.Resources>
+        <TabControl x:Name="Tabs" 
+                    TabStripPlacement="Right"  
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" 
+                    Background="{x:Null}" 
+                    Height="550" Width="980" BorderBrush="White" Grid.ColumnSpan="2" Margin="10,0,0,0" >
 
 
 
             <TabItem
-                Header="sync_XML" 
+                Header="START" 
                 Name="T1" 
-                Height="28" Width="80" 
-                Margin="3" 
-                Foreground="Black" Background="#FF4B4B4B" 
-                VerticalAlignment="Center" HorizontalAlignment="Center" 
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2"
+                >
 
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9" Background="Black" Width="828" Height="449" >
+                <Grid Width="300" Height="60" Margin="0,350,0,0" 
+                      >
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FFC7C7C7" Opacity="0.5"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label  Name="Description1" 
+                                  Content="{Binding Source={x:Static p:Settings.Default}, Path=Version, Mode=TwoWay}" 
+                                  Grid.Column="0" 
+                                  Grid.ColumnSpan="2"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                  FontWeight="Normal" 
+                                  FontSize="15" 
+                                  FontFamily="Bahnschrift SemiBold" 
+                                  Background="{x:Null}" 
+                                  BorderBrush="{x:Null}" 
+                                  Foreground="#FF2B35FF"/>
+
+                    <Label  Name="Description2" 
+                                  Content="developed by coder bude Nitschko" 
+                                  Grid.Row="1" Grid.Column="0" 
+                                  Grid.ColumnSpan="2" 
+                                  HorizontalAlignment="Center"
+                                  FontWeight="Normal" 
+                                  FontSize="15" 
+                                  FontFamily="Bahnschrift SemiBold" 
+                                  BorderBrush="{x:Null}" 
+                                  Background="{x:Null}" />
+                </Grid>
+
+
+            </TabItem>
+
+
+            <TabItem
+                Header="interf. TDB" 
+                Name="T2" 
+                Height="30" Width="80" 
+                HorizontalAlignment="Center" 
+                Margin="2,2,2,2" 
+                
+                >
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" 
+                      Width="830" Height="450" >
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.8"/>
+                    </Grid.Background>
+
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
@@ -164,13 +116,13 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="850"/>
                     </Grid.ColumnDefinitions>
 
 
                     <TextBlock Name="Description_xml" 
-                               Text="sync xml interface" 
-                               Foreground="#FF919191" 
+                               Text="extension interface - Coscom-hyperMILL" 
+                               Foreground="#FFB8B8B8" 
                                Grid.Row="0" Grid.Column="0" 
                                FontWeight="Bold" FontSize="25
                                " 
@@ -192,7 +144,6 @@
                             Grid.Row="2" Grid.Column="0" 
                             HorizontalAlignment="Center" VerticalAlignment="Center" 
                             Width="100" Height="20" 
-                            Foreground="Black" Background="#FF4B4B4B" 
                             >START</Button>
 
                     <Button Click="Btn_Stop_sync_Click"  
@@ -201,57 +152,47 @@
                             Grid.Row="2" Grid.Column="0" 
                             HorizontalAlignment="Center" VerticalAlignment="Center" 
                             Width="100" Height="20" 
-                            Foreground="Black" Background="#FF4B4B4B" 
                             IsEnabled="False" 
                             >STOP</Button>
 
 
 
-                    <ScrollViewer   Grid.Row="3" Grid.Column="0" 
-                                    HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                    Foreground="{x:Null}" 
-                                    Margin="10,20,-1,10" 
-                                    Width="808" Height="300">
 
-                        <TextBlock x:Name="tb_AusgabeDBINFO" 
-                                   Text="{Binding Source={x:Static p:Settings.Default}, Path=syncxml_Info, Mode=TwoWay}" 
-                                   Foreground="#FF6681C9" 
-                                   Width="792" Height="320" 
-                                   TextWrapping="Wrap" 
-                                   VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="13"/>
+                    <TextBlock x:Name="tb_AusgabeDBINFO" 
+                       Grid.Row="3" Grid.Column="0" 
+                               Text="{Binding Source={x:Static p:Settings.Default}, Path=syncxml_Info, Mode=TwoWay}" 
+                               Foreground="#FFB8B8B8" 
+                               Width="706" Height="274" 
+                               TextWrapping="Wrap" FontSize="14"/>
 
-                    </ScrollViewer>
+
 
                     <Button Click="Btn_option_sync_Click" 
-                            x:Name="btn_option_start_sync" 
-                            Margin="0" 
-                            Grid.Row="4" Grid.Column="0" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" 
-                            BorderBrush="{x:Null}" Width="300" Background="#FF4B4B4B" 
-                            >Options</Button>
+                x:Name="btn_option_start_sync" 
+                Margin="0" 
+                Grid.Row="4" Grid.Column="0" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                BorderBrush="{x:Null}" Width="100"  Height="20" 
+               >Options</Button>
+
 
                 </Grid>
             </TabItem>
 
 
-
-
-
-
-
-
-
-            <TabItem Header="running_Vc" 
-                     Name="T2" 
-                     Height="28" Width="80" 
-                     Margin="3" 
-                     Foreground="Black" Background="#FF4B4B4B" 
-                     VerticalAlignment="Center" HorizontalAlignment="Center" 
-                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+            <TabItem Header="scan_Vc" 
+                     Name="T3" 
+                     Height="30" Width="80" 
+                     HorizontalAlignment="Center" 
+                     Margin="2,2,2,2" 
                      >
 
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" 
+                      Width="830" Height="450" >
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.8"/>
+                    </Grid.Background>
 
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9" Background="Black" Width="828" Height="449" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="20"/>
@@ -269,14 +210,15 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="410"/>
-                        <ColumnDefinition Width="410"/>
+                        <ColumnDefinition Width="415"/>
+                        <ColumnDefinition Width="415"/>
                     </Grid.ColumnDefinitions>
+
 
 
                     <TextBlock Name="Description" 
                                Text="scan Vc from a runnig NC:" 
-                               Foreground="#FF919191" 
+                               Foreground="#FFB8B8B8" 
                                Grid.Row="0" Grid.Column="0" 
                                Grid.ColumnSpan="2" 
                                FontWeight="Bold" FontSize="25"
@@ -284,11 +226,15 @@
                                TextDecorations="Underline" 
                                FontFamily="Bahnschrift SemiBold"/>
 
-                    <TextBox x:Name="FilePath"                                                        Grid.Row="2" Grid.Column="0" Text="FilePath" TextWrapping="Wrap" Width="503" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Cursor="None" IsEnabled="False" VerticalAlignment="Center" Margin="10,1,309,1" Grid.ColumnSpan="2"  />
-                    <Button  x:Name="BrowseButton" Click="BrowseButton_Click"                         Grid.Row="2" Grid.Column="1" Content="browse a file" Width="160" HorizontalAlignment="Center" Margin="247,0,4,0" Background="#FF4B4B4B"  ></Button>
-                    <Button  x:Name="btn_runningVc" Click="Btn_runningVc"                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="#FF040404" Background="#FF3278A0" VerticalAlignment="Center" Margin="10,0,4,0" Width="808" Height="20" HorizontalAlignment="Center">Scan</Button>
-                    <Button x:Name="btn_openresults" Click="Btn_openresults_Click"                    Grid.Row="8" Grid.Column="0" Content="open results" Width="160" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,241,0" Background="#FF4B4B4B" ></Button>
-                    <Button x:Name="btn_openresults2" Click="Btn_openresults2_Click"                  Grid.Row="8" Grid.Column="1" Content="open results only values" Width="160" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="247,0,4,0" Background="#FF4B4B4B" ></Button>
+                    <TextBox x:Name="FilePath"                                                        Grid.Row="2" Grid.Column="0" Text="FilePath" TextWrapping="Wrap" Width="503" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Cursor="None" IsEnabled="False" VerticalAlignment="Center" Margin="10,1,309,1" Grid.ColumnSpan="2" Foreground="White" FontWeight="Bold"  />
+                    <Button  x:Name="BrowseButton" Click="BrowseButton_Click"                         Grid.Row="2" Grid.Column="1" Content="browse a file" Width="160" HorizontalAlignment="Center" Margin="247,0,4,0"   ></Button>
+                    <Button  x:Name="btn_runningVc" Click="Btn_runningVc"                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="#FF040404" VerticalAlignment="Center" Margin="10,0,4,0" Width="808" Height="20" HorizontalAlignment="Center">
+                        <Button.Background>
+                            <SolidColorBrush Color="#FF2F38F1" Opacity="0.5"/>
+                        </Button.Background> Scan
+                    </Button>
+                    <Button x:Name="btn_openresults" Click="Btn_openresults_Click"                    Grid.Row="8" Grid.Column="0" Content="open results" Width="160" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,241,0"  ></Button>
+                    <Button x:Name="btn_openresults2" Click="Btn_openresults2_Click"                  Grid.Row="8" Grid.Column="1" Content="open results only values" Width="160" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="247,0,4,0"  ></Button>
 
                     <TextBlock x:Name="tb_INFO" Text=""                                               Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Margin="121,0,161,0"/>
 
@@ -296,29 +242,195 @@
                         <TextBlock x:Name="tb_AusgabeVCINFO"                                          Text="" Foreground="#FFB9B9B9" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
                     </ScrollViewer>
 
+                </Grid>
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T4" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="TESTSPACE" 
+                Name="T5" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" 
+                >
+
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T6" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T7" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T8" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T9" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T10" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T11" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T12" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T13" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T14" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T15" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="" 
+                Name="T16" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" IsEnabled="False" 
+                >
+
+            </TabItem>
+
+
+            <TabItem
+                Header="HILFE" 
+                Name="T19" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" 
+                >
+                <TabItem.Background>
+                    <SolidColorBrush Color="#FF2F38F1" Opacity="0.3"/>
+                </TabItem.Background>
+            </TabItem>
+
+
+            <TabItem
+                Header="BEENDEN" 
+                Name="T20" 
+                Height="30" Width="80" 
+                VerticalAlignment="Center"
+                Margin="2,2,2,2" 
+                >
+                <TabItem.Background>
+                    <SolidColorBrush Color="Red" Opacity="0.3"/>
+                </TabItem.Background>
+
+
+
+                <Grid Width="830">
+
+                    <Grid >
+                        <Button x:Name="CLOSEd" Margin="265,417,267,102" Click="Btn_Exit_Click"
+                                Content="CLOSE" 
+                                Foreground="Red" BorderBrush="Black" 
+                                Background="{x:Null}" FontWeight="Bold" FontSize="15"/>
+                    </Grid>
+
 
                 </Grid>
             </TabItem>
 
 
         </TabControl>
-
-
-        <Button Click="Btn_Info_Click"  Content="?" Height="25" VerticalAlignment="Center" Width="25" Grid.Row="1" HorizontalAlignment="Center" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
-            <Button.Background>
-                <SolidColorBrush Color="#FFC7C7C7" Opacity="0.7"/>
-            </Button.Background>
-        </Button>
-
-        <Button Click="Btn_Exit_Click"  Content="bye bye" Height="25" VerticalAlignment="Center" Width="60" Grid.Row="1" HorizontalAlignment="Left" Margin="128,0,20,0" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold" RenderTransformOrigin="24.1,0.9" Grid.Column="3">
-            <Button.Background>
-                <SolidColorBrush Color="#FF992615" Opacity="0.7"/>
-            </Button.Background>
-        </Button>
-
     </Grid>
-    
-    -->
-
 </Window>
 

@@ -18,19 +18,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="_Images\wally.jpg" />
     <None Remove="_Images\wally1.jpg" />
-    <None Remove="_Images\wally2.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="_Images\wally.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="_Images\wally1.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="_Images\wally2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -47,6 +39,9 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="_Images\start.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
