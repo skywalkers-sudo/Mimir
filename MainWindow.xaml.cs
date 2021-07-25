@@ -26,32 +26,24 @@ namespace Mimir
         {
             InitializeComponent();
             SQL();
+            Version();
         }
 
 
 
-        #region ==============================================MAINWINDOW  STARTTAB==============================================
-        private void Btn_Info_Click(object sender, RoutedEventArgs e)
-        {
-
-            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Properties.Settings.Default.Version = ("Version: " + version);
-
-        }
-
+        #region ========================================MAINWINDOW  START-TAB========================================
+        // --------------   close instruction  ----------------------------
         private void Btn_Exit_Click(object sender, RoutedEventArgs u)
         {
             Properties.Settings.Default.Save();                              // Einstellungen sichern
             Environment.Exit(0);                                                   // Fenster schließen über MEnue
         }
-
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             Properties.Settings.Default.Save();                              // Einstellungen sichern
             base.OnClosing(e);                                               // Fenster schließen
         }
-
-        // -----------------SQL DATABASE CONNECTION------------------
+        // -----------------SQL DATABASE CONNECTION------------------------
         public void SQL()
         {
             //MessageBox.Show("Getting Connection ...");
@@ -83,7 +75,6 @@ namespace Mimir
                 lbl_SQL1.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x2B, 0x2B));   // #FF FF 2B 2B rot
             }
         }
-
         private void Btn_start_sql_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -96,7 +87,6 @@ namespace Mimir
             }
                 
         }
-
         private void Btn_option_sql_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -116,11 +106,12 @@ namespace Mimir
                 MessageBox.Show("" + u);
             }
         }
-
-
-
-
-
+        // -------------------------------Version--------------------------
+        public void Version()
+        {
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Properties.Settings.Default.Version = "Version: " + version;
+        }
         #endregion
 
 
@@ -795,6 +786,8 @@ namespace Mimir
 
 
         #endregion
+
+
 
         private void Test_Click(object sender, RoutedEventArgs e)
         {
