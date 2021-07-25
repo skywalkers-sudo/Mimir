@@ -32,5 +32,17 @@
     <Setting Name="Version" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="SQL_DATASOURCE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HSNI-WIN\SQLEXPRESS</Value>
+    </Setting>
+    <Setting Name="SQL_DATABASE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">VC</Value>
+    </Setting>
+    <Setting Name="SQL_USER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="SQL_PASSWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">testpass</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

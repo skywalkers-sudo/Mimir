@@ -18,6 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="_Images\start.png" />
     <None Remove="_Images\wally1.jpg" />
   </ItemGroup>
 
@@ -43,13 +44,20 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Update="_Images\start.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="_files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="_Images\start.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </SplashScreen>
   </ItemGroup>
 
   <ItemGroup>

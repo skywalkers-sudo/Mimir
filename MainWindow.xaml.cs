@@ -5,8 +5,13 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Reflection;
+using System.Data.SqlClient;
 using System.Windows.Navigation;
 using System.Threading;
+using System.Data;
+using Mimir._database;
+using System.Windows.Media;
+using Mimir._window;
 
 namespace Mimir
 {
@@ -20,10 +25,12 @@ namespace Mimir
         public MainWindow()
         {
             InitializeComponent();
+            SQL();
         }
 
 
-        #region ==============================================MAINWINDOW==============================================
+
+        #region ==============================================MAINWINDOW  STARTTAB==============================================
         private void Btn_Info_Click(object sender, RoutedEventArgs e)
         {
 
@@ -31,16 +38,89 @@ namespace Mimir
             Properties.Settings.Default.Version = ("Version: " + version);
 
         }
+
         private void Btn_Exit_Click(object sender, RoutedEventArgs u)
         {
             Properties.Settings.Default.Save();                              // Einstellungen sichern
             Environment.Exit(0);                                                   // Fenster schließen über MEnue
         }
+
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             Properties.Settings.Default.Save();                              // Einstellungen sichern
             base.OnClosing(e);                                               // Fenster schließen
         }
+
+        // -----------------SQL DATABASE CONNECTION------------------
+        public void SQL()
+        {
+            //MessageBox.Show("Getting Connection ...");
+            SqlConnection conn = DBUtils.GetDBConnection();
+
+            try
+            {
+                //MessageBox.Show("Openning Connection ...");
+                conn.Open();        
+
+                // Abfrage ob SQL verbindung erfolgreich war
+                if (conn.State == ConnectionState.Open)
+                {
+                    lbl_SQL1.Content = "SQL-Connection successful!";
+                    lbl_SQL1.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x32, 0xF1, 0x1D));   // #FF32F11D grün
+                }
+
+                else
+                {
+                    lbl_SQL1.Content = "SQL-Connection failed!";
+                    lbl_SQL1.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x2B, 0x2B));   // #FF FF 2B 2B rot
+                }
+            }
+
+            catch (Exception)
+            {
+                // MessageBox.Show("" + e);
+                lbl_SQL1.Content = "SQL-Connection failed!";
+                lbl_SQL1.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x2B, 0x2B));   // #FF FF 2B 2B rot
+            }
+        }
+
+        private void Btn_start_sql_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SQL();
+            }
+            catch (Exception r)
+            {
+                MessageBox.Show("" + r);
+            }
+                
+        }
+
+        private void Btn_option_sql_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Options_SQL window = new();
+
+
+                // Haupfenster als Eigentümer festlegn
+                Window mainWindow = Application.Current.MainWindow;
+                window.Owner = mainWindow;
+
+
+                _ = window.ShowDialog();      // Methode wo das Haupfenster gesperrt wird
+            }
+            catch (Exception u)
+            {
+                MessageBox.Show("" + u);
+            }
+        }
+
+
+
+
+
         #endregion
 
 
@@ -719,9 +799,24 @@ namespace Mimir
         private void Test_Click(object sender, RoutedEventArgs e)
         {
 
+            try
+            { 
+
+
+            }
+
+
+
+            catch (Exception u)
+            {
+                MessageBox.Show("" + u);
+            }
+
 
 
 
         }
+
+
     }
 }

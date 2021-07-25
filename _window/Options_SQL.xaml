@@ -1,0 +1,157 @@
+﻿<Window x:Class="Mimir._window.Options_SQL"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mimir._window"
+        xmlns:p="clr-namespace:Mimir.Properties"
+        mc:Ignorable="d"
+        Title="SQL Connection Settings"
+        Height="300" Width="440" 
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
+
+
+
+
+
+    <Window.Background>
+        <SolidColorBrush Color="#FF3E3E3E" />
+    </Window.Background>
+
+
+    <Grid Margin="0,0,0,0">
+        <Grid.Background>
+            <SolidColorBrush Color="#FF555555" Opacity="0.6"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+
+
+        <Label
+             Grid.Row="0" FontWeight="Bold" Background="{x:Null}" Foreground="#FF3367F1" IsEnabled="False" 
+            >Datasource:
+        </Label>
+
+
+
+
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="source" 
+                 Text="{Binding Source={x:Static p:Settings.Default}, Path=SQL_DATASOURCE, Mode=TwoWay}"
+                 Grid.Row="1" 
+                     SelectionBrush="{x:Null}" 
+                     Margin="5,5,5,5" 
+                     Background="#FFD4D4D4"
+                     ToolTip="Backslash am Ende nicht vergessen"
+            >
+            </TextBox>
+        </Grid>
+
+
+
+
+        <Label
+             Grid.Row="2" FontWeight="Bold" Background="{x:Null}" Foreground="#FF3367F1" VerticalAlignment="Bottom"
+            >Database:
+        </Label>
+
+
+
+
+
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="destination" 
+                 Text="{Binding Source={x:Static p:Settings.Default}, Path=SQL_DATABASE, Mode=TwoWay}"
+                 Grid.Row="3" 
+                 SelectionBrush="{x:Null}" 
+                 Margin="5,5,5,5" 
+                 Background="#FFD4D4D4"
+                 ToolTip="Backslash am Ende nicht vergessen"
+            >
+            </TextBox>
+        </Grid>
+
+
+
+        <Label
+             Grid.Row="4" FontWeight="Bold" Background="{x:Null}" Foreground="#FF3367F1" IsEnabled="False" 
+            >User:
+        </Label>
+
+
+
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="destination2" 
+                 Text="{Binding Source={x:Static p:Settings.Default}, Path=SQL_USER, Mode=TwoWay}"
+                 SelectionBrush="{x:Null}" 
+                 Margin="5,5,5,5" 
+                 Background="#FFD4D4D4"
+                 ToolTip="Backslash am Ende nicht vergessen"
+            >
+            </TextBox>
+        </Grid>
+
+
+
+
+
+
+
+        <Label
+             Grid.Row="6" FontWeight="Bold" Background="{x:Null}" Foreground="#FF3367F1" IsEnabled="False" 
+            >Password:
+        </Label>
+
+
+
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="44"></ColumnDefinition>
+                <ColumnDefinition Width="356"/>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="destination32" 
+                 Text="{Binding Source={x:Static p:Settings.Default}, Path=SQL_PASSWORD, Mode=TwoWay}"
+                 SelectionBrush="{x:Null}" 
+                 Margin="5,5,5,5" 
+                 Background="#FFD4D4D4"
+                 ToolTip="Backslash am Ende nicht vergessen" Grid.ColumnSpan="2"
+            >
+            </TextBox>
+        </Grid>
+
+
+    </Grid>
+
+
+
+</Window>

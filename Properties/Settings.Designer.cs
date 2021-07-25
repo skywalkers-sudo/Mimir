@@ -142,5 +142,53 @@ namespace Mimir.Properties {
                 this["Version"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HSNI-WIN\\SQLEXPRESS")]
+        public string SQL_DATASOURCE {
+            get {
+                return ((string)(this["SQL_DATASOURCE"]));
+            }
+            set {
+                this["SQL_DATASOURCE"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("VC")]
+        public string SQL_DATABASE {
+            get {
+                return ((string)(this["SQL_DATABASE"]));
+            }
+            set {
+                this["SQL_DATABASE"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sa")]
+        public string SQL_USER {
+            get {
+                return ((string)(this["SQL_USER"]));
+            }
+            set {
+                this["SQL_USER"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("testpass")]
+        public string SQL_PASSWORD {
+            get {
+                return ((string)(this["SQL_PASSWORD"]));
+            }
+            set {
+                this["SQL_PASSWORD"] = value;
+            }
+        }
     }
 }
