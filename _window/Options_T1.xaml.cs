@@ -24,12 +24,17 @@ namespace Mimir
         public Options_T1()
         {
             InitializeComponent();
+            SetProperties();
         }
 
 
 
 
-
+        public void SetProperties()
+        {
+            Uri iconUri = new Uri("pack://application:,,,/_Images/ico/faviconsettings.ico", UriKind.RelativeOrAbsolute);
+            this.Icon = BitmapFrame.Create(iconUri);
+        }
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             Properties.Settings.Default.Save();                              // Einstellungen sichern

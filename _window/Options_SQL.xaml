@@ -8,7 +8,9 @@
         mc:Ignorable="d"
         Title="SQL Connection Settings"
         Height="300" Width="440" 
-        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
+        WindowStartupLocation="CenterOwner"
+        >
+
 
 
 
@@ -59,7 +61,7 @@
                      SelectionBrush="{x:Null}" 
                      Margin="5,5,5,5" 
                      Background="#FFD4D4D4"
-                     ToolTip="Backslash am Ende nicht vergessen"
+                     ToolTip=""
             >
             </TextBox>
         </Grid>
@@ -89,7 +91,7 @@
                  SelectionBrush="{x:Null}" 
                  Margin="5,5,5,5" 
                  Background="#FFD4D4D4"
-                 ToolTip="Backslash am Ende nicht vergessen"
+                 ToolTip=""
             >
             </TextBox>
         </Grid>
@@ -114,7 +116,7 @@
                  SelectionBrush="{x:Null}" 
                  Margin="5,5,5,5" 
                  Background="#FFD4D4D4"
-                 ToolTip="Backslash am Ende nicht vergessen"
+                 ToolTip=""
             >
             </TextBox>
         </Grid>
@@ -144,7 +146,7 @@
                  SelectionBrush="{x:Null}" 
                  Margin="5,5,5,5" 
                  Background="#FFD4D4D4"
-                 ToolTip="Backslash am Ende nicht vergessen" Grid.ColumnSpan="2"
+                 ToolTip="" Grid.ColumnSpan="2"
             >
             </TextBox>
         </Grid>

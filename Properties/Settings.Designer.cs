@@ -169,7 +169,7 @@ namespace Mimir.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("testuser")]
         public string SQL_USER {
             get {
                 return ((string)(this["SQL_USER"]));
@@ -188,6 +188,18 @@ namespace Mimir.Properties {
             }
             set {
                 this["SQL_PASSWORD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string scanVC_Info {
+            get {
+                return ((string)(this["scanVC_Info"]));
+            }
+            set {
+                this["scanVC_Info"] = value;
             }
         }
     }

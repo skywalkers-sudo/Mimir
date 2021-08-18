@@ -12,6 +12,7 @@ using System.Data;
 using Mimir._database;
 using System.Windows.Media;
 using Mimir._window;
+using System.Windows.Media.Imaging;
 
 namespace Mimir
 {
@@ -27,6 +28,7 @@ namespace Mimir
             InitializeComponent();
             SQL();
             Version();
+            SetProperties();
         }
 
 
@@ -35,13 +37,22 @@ namespace Mimir
         // --------------   close instruction  ----------------------------
         private void Btn_Exit_Click(object sender, RoutedEventArgs u)
         {
+            Properties.Settings.Default.scanVC_Info = " ";                   // log GUI leeren Scan VC
             Properties.Settings.Default.Save();                              // Einstellungen sichern
             Environment.Exit(0);                                                   // Fenster schließen über MEnue
         }
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
+            Properties.Settings.Default.scanVC_Info = " ";                   // log GUI leeren Scan VC
             Properties.Settings.Default.Save();                              // Einstellungen sichern
             base.OnClosing(e);                                               // Fenster schließen
+        }
+        // ----------------------get Settings------------------------------
+        public void SetProperties()
+        {
+            // Icon für Window festlegen
+            Uri iconUri = new Uri("pack://application:,,,/_Images/ico/favicon.ico", UriKind.RelativeOrAbsolute);
+            this.Icon = BitmapFrame.Create(iconUri);
         }
         // -----------------SQL DATABASE CONNECTION------------------------
         public void SQL()
@@ -57,7 +68,10 @@ namespace Mimir
                 // Abfrage ob SQL verbindung erfolgreich war
                 if (conn.State == ConnectionState.Open)
                 {
-                    lbl_SQL1.Content = "SQL-Connection successful!";
+                    var stm = "SELECT @@VERSION";
+                    using var cmd = new SqlCommand(stm, conn);
+                    string version = cmd.ExecuteScalar().ToString();
+                    lbl_SQL1.Content = "SQL Database-Connection successful!";
                     lbl_SQL1.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x32, 0xF1, 0x1D));   // #FF32F11D grün
                 }
 
@@ -66,6 +80,7 @@ namespace Mimir
                     lbl_SQL1.Content = "SQL-Connection failed!";
                     lbl_SQL1.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x2B, 0x2B));   // #FF FF 2B 2B rot
                 }
+
             }
 
             catch (Exception)
@@ -73,6 +88,14 @@ namespace Mimir
                 // MessageBox.Show("" + e);
                 lbl_SQL1.Content = "SQL-Connection failed!";
                 lbl_SQL1.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x2B, 0x2B));   // #FF FF 2B 2B rot
+            }
+            finally
+            {
+                // die Verbindung schließen.
+                conn.Close();
+                // das Objekt absagen, die Ressourcen freien.
+                conn.Dispose();
+                conn = null;
             }
         }
         private void Btn_start_sql_Click(object sender, RoutedEventArgs e)
@@ -153,6 +176,7 @@ namespace Mimir
 
                 // write Status to xaml
                 status.Content = "FILEWATCHER RUN";
+                status.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x32, 0xF1, 0x1D));   // #FF32F11D grün
 
             }
 
@@ -463,13 +487,13 @@ namespace Mimir
                     // ================================================================================verschiebe Datei=======================================================================================
                     if (System.IO.Directory.Exists(TARGETXML))
                     {
-                        System.IO.File.Move(xmlList[0], @TARGETXML + filename);
+                        File.Move(xmlList[0], @TARGETXML + filename);
                         _ = sb.Append("\n" + " --> File moved to: " + @TARGETXML);
                     }
                     else
                     {
-                        System.IO.Directory.CreateDirectory(@TARGETXML);
-                        System.IO.File.Move(xmlList[0], @TARGETXML + filename);
+                        Directory.CreateDirectory(@TARGETXML);
+                        File.Move(xmlList[0], @TARGETXML + filename);
                         _ = sb.Append("\n" + " --> Created Directory " + @TARGETXML + " and moved File");
                     }
 
@@ -516,7 +540,7 @@ namespace Mimir
 
                 // write Status to xaml
                 status.Content = "FILEWATCHER STOPPED";
-
+                status.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x2B, 0x2B));   // #FF FF 2B 2B rot
             }
             catch (Exception u)
             {
@@ -565,42 +589,47 @@ namespace Mimir
         }
         private void Btn_runningVc(object sender, RoutedEventArgs e)
         {
-            // ---------------------------------------------------------------------------------
-            // Variablen
 
 
-            string text = FilePath.Text;
-            var filereadVCOrginal = text;                          // oginal Datei
-            var filereadVCClean = @"tmp_CLEAN.txt";                // geschriebende Datei ohne Zeilennummerierung
-            string filewriteVC = @"tmp_result_Vc1.txt";
-            string filewriteVC2 = @"tmp_result_Vc2.txt";
+            // SQL Datenbank öffnen START------------------------------------------
+            SqlConnection connection = DBUtils.GetDBConnection();
+            connection.Open();
+            // SQL Datenbank öffnen ENDE-------------------------------------------
 
-            string[] sPattern = new string[6];                 // zu suchende Schluesselwoerter
-            sPattern[0] = "TOOL CALL";
-            sPattern[1] = ";";
-            sPattern[2] = " *- ";
-            sPattern[3] = "FN 0:Q10";
-            sPattern[4] = "FN 0:Q11";
-            sPattern[5] = "FN 0:Q12";
 
-            string placeholder = " --------------------------------------------------------------------------------------------- ";
 
-            // ---------------------------------------------------------------------------------
-            // work
-            File.WriteAllText(filereadVCClean, string.Empty);                                //  tmp leeren
-
-            try                                                                              // wenn gefunden
+            try                                                                              // fehler abfangen
             {
+                // Init ----------------------------------------------------------------------------------------------------------------
+                string text = FilePath.Text;
+                var filereadVCOrginal = text;                          // oginal Datei
+                var filereadVCClean = @"tmp_CLEAN.txt";                // geschriebende Datei ohne Zeilennummerierung
+                string filewriteVC = @"tmp_result_Vc1.txt";
+                string filewriteVC2 = @"tmp_result_Vc2.txt";
+
+                string[] sPattern = new string[6];                 // zu suchende Schluesselwoerter
+                sPattern[0] = "TOOL CALL";
+                sPattern[1] = ";";
+                sPattern[2] = " *- ";
+                sPattern[3] = "FN 0:Q10";
+                sPattern[4] = "FN 0:Q11";
+                sPattern[5] = "FN 0:Q12";
+
+                string placeholder = " --------------------------------------------------------------------------------------------- ";
+
+                StringBuilder sb1 = new();                                 // stringbuilder für kommentare
+                File.WriteAllText(filereadVCClean, string.Empty);          // tmp Textdatei leeren
+                Properties.Settings.Default.scanVC_Info = " ";             // Infofenster leeren 
+                // -----------------------------------------------------------------------------------------------------------------------
 
 
 
-
-                // START ZeilenNr aus Ursprungsdatei löschen       -----------------------
+                // START ZeilenNr aus Ursprungsdatei löschen START       -----------------------
                 string line;
                 int counter = 0;
                 using (var sr = new StreamReader(filereadVCOrginal))                     // öffne eine zu lesende Datei
                 using (var sw = new StreamWriter(filereadVCClean))                       // öffne die zu schreibende Datei
-                {
+                
                     while ((line = sr.ReadLine()) != null)
                     {
                         counter++;
@@ -610,11 +639,46 @@ namespace Mimir
                         sw.WriteLine(result);
 
                     }
-                }
-                tb_INFO.Text = "There were " + counter + " lines";
-                tb_INFO.Text = "Zeilennummerierung geloescht";
-                // END ZeilenNr aus Ursprungsdatei löschen       -------------------------
+                
+                _ = sb1.Append("There were " + counter + " lines");
+                _ = sb1.Append("\n" + " --> Zeilennummerierung geloescht");
+                // END ZeilenNr aus Ursprungsdatei löschen ENDE      -------------------------
 
+
+
+                // create a sql table START ----------------------------------------------------------------------------------------------
+
+
+
+                /*
+                SqlCommand command;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                String sql = "";
+
+                sql = "Insert into WKZ (TUTOID,TUTONAME) values(3,'" + "VBNET" + "')";
+
+                command = new SqlCommand(sql, connection);
+
+                adapter.InsertCommand = new SqlCommand(sql, connection);
+                adapter.InsertCommand.ExecuteNonQuery();
+
+                command.Dispose();
+                connection.Close();
+                */
+
+
+                /*
+                cmd.CommandText = @"CREATE TABLE WKZ(id int identity(1,1) NOT NULL PRIMARY KEY,name INT NOT NULL,SpindleSpeed_S INT,fXY INT,fZ INT, ae FLOAT, ap FLOAT, VC INT, fz FLOAT, z INT)";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "INSERT INTO WKZ(name, SpindleSpeed_S) VALUES('111111',6000)";
+                cmd.ExecuteNonQuery();
+
+
+                _ = sb1.Append("\n" + "SQL-Table WKZ created");
+                */
+
+                // create a sql table END  -----------------------------------------------------------------------------------------------
 
 
 
@@ -639,10 +703,47 @@ namespace Mimir
                                 string NR = (line[11].ToString() + line[12].ToString() + line[13].ToString() + line[14].ToString() + line[15].ToString() + line[16].ToString());
                                 sw1.WriteLine(placeholder);
                                 sw1.WriteLine("Wkz-NR:   " + NR);
+
+
+
+                                int.TryParse(NR, out int wkzID);   // string in int wandeln
+
+
+                                /*
+
+                                // SQL Anweisungen
+
+                                // Das Statement Insert.
+                                string sql = "Insert into WKZ (ID) "
+                                                                 + " values (@ID) ";
+
+                                SqlCommand cmd = connection.CreateCommand();
+                                cmd.CommandText = sql;
+
+                                // Die Parameter WKZ einfügen (mehr kürzer schreiben).
+                                cmd.Parameters.Add("@WKZ", SqlDbType.Int).Value = 500;
+
+                                // das Command ausführen ( für Delete, insert, update benutzen).
+                                int rowCount = cmd.ExecuteNonQuery();
+
+                                MessageBox.Show("Row Count affected = " + rowCount);
+                                */
+
+
                             }
                             else { }
 
-                        }   // WerkzeugNr finden und schreiben
+                        }   // Werkzeug ID
+
+
+
+
+
+
+
+
+
+
 
                         if (System.Text.RegularExpressions.Regex.IsMatch(line, sPattern[0], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                         {
@@ -658,21 +759,7 @@ namespace Mimir
                                 sw1.WriteLine("S change:   " + S);
                             }
                             else { }
-                        }
-
-                        if (System.Text.RegularExpressions.Regex.IsMatch(line, sPattern[1], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
-                        {
-                            if (line.StartsWith(";"))
-                            {
-                                sw.WriteLine(line);
-                            }
-                            else { }
-                        }
-
-                        if (System.Text.RegularExpressions.Regex.IsMatch(line, sPattern[2], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
-                        {
-                            sw.WriteLine(line);
-                        }
+                        }   // Drehzahl
 
                         if (System.Text.RegularExpressions.Regex.IsMatch(line, sPattern[3], System.Text.RegularExpressions.RegexOptions.IgnoreCase))         // wenn dann
                         {
@@ -708,11 +795,13 @@ namespace Mimir
 
                     }
 
+
+
                 tb_AusgabeVCINFO.Text = System.IO.File.ReadAllText(filewriteVC);
                 tb_INFO.Text = "Scan successful";                                    // Kommentarzeile schreiben
-
-
-
+                _ = sb1.Append("\n" + "Scan successful");
+                tb_INFO.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x32, 0xF1, 0x1D));   // #FF32F11D grün
+                Properties.Settings.Default.scanVC_Info = sb1.ToString();    // schreibe Infos in settingsdatei (für Ausgabefenster)
 
 
 
@@ -723,11 +812,18 @@ namespace Mimir
             }
 
             // ---------------------------------------------------------------------------------
-            // ausfuehren falls Fehler
-            catch (Exception u)
+            
+            catch (Exception u)     // ausfuehren falls Fehler
             {
-                tb_INFO.Text = "" + u;
-                tb_AusgabeVCINFO.Text = " ";
+                MessageBox.Show("" + u);
+            }
+            finally
+            {
+                // die Verbindung schließen.
+                connection.Close();
+                // das Objekt absagen, die Ressourcen freien.
+                connection.Dispose();
+                connection = null;
             }
 
         }
@@ -789,11 +885,20 @@ namespace Mimir
 
 
 
+
+
+
+
+
+
         private void Test_Click(object sender, RoutedEventArgs e)
         {
 
             try
             { 
+
+
+
 
 
             }

@@ -39,10 +39,13 @@
       <Value Profile="(Default)">VC</Value>
     </Setting>
     <Setting Name="SQL_USER" Type="System.String" Scope="User">
-      <Value Profile="(Default)">sa</Value>
+      <Value Profile="(Default)">testuser</Value>
     </Setting>
     <Setting Name="SQL_PASSWORD" Type="System.String" Scope="User">
       <Value Profile="(Default)">testpass</Value>
+    </Setting>
+    <Setting Name="scanVC_Info" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
