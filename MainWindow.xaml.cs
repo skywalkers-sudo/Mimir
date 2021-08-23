@@ -186,7 +186,6 @@ namespace Mimir
             }
         }
 
-
         // Define the event handler.
         private void FSW_Created(object source, FileSystemEventArgs e)
         {
@@ -221,9 +220,10 @@ namespace Mimir
 
                     // stringbuilder für Info
                     StringBuilder sb = new();
-                    _ = sb.Append("==========  neues Wkz gefunden " + filename + "  ==========");
+                    _ = sb.Append("===================  neues Wkz gefunden " + filename + "  ====================");
 
-
+                    string datetime = DateTime.Now.ToString();
+                    _ = sb.Append("\n --> " + datetime);
 
 
                     // ================================================================================FEATURE 1 CHECK========================================================================================
@@ -481,6 +481,66 @@ namespace Mimir
                     // ================================================================================FEATURE 5 CHECK========================================================================================
                     if (Properties.Settings.Default.optionsT1_Feature5_check == true)
                     {
+                        XmlDocument xmlDoc = new();
+                        xmlDoc.Load(path1);             // xml laden
+
+                        // Lesen von Werkzeugstatus (funktiniert nur solange nicht mehr Unterknoten im Knoten param drinnen sind)
+                        XmlNode noderead1 = xmlDoc.SelectSingleNode("/omtdx/ncTools/ncTools/ncTools/ncTool/customData/param");
+
+                        string folderspezial = "SONDERWKZS (Bestand prüfen)";
+
+                        if (noderead1 != null)
+                        {
+                            var Status = noderead1.Attributes["value"].Value;
+
+                            switch (Status)
+                            {
+                                case "Freigegeben":
+                                    _ = sb.Append("\n" + " --> Status Freigegeben gefunden -> wird nicht in Ordner '" + folderspezial + "' hinzugefügt");
+                                    break;
+
+
+                                case "FAVORIT":
+                                    _ = sb.Append("\n" + " --> Klasse FAVOURIT gefunden -> wird nicht in Ordner '" + folderspezial + "' hinzugefügt");
+                                    break;
+
+
+
+                                default:
+
+                                    // nodepath
+                                    XmlNode root = xmlDoc.SelectSingleNode("omtdx/ncTools");
+
+                                    //Create a deep clone.  The cloned node
+                                    //includes the child nodes.
+                                    XmlNode deep = root.CloneNode(true);
+
+                                    //Add the deep clone to the document.
+                                    root.InsertBefore(deep, root.FirstChild);
+
+                                    //remove the old node
+                                    root.RemoveChild(root.LastChild);
+
+                                    //Create a new attribute.
+                                    XmlNode root1 = xmlDoc.SelectSingleNode("omtdx/ncTools/ncTools");
+                                    string ns = root1.GetNamespaceOfPrefix("ncTools");
+                                    XmlNode attr = xmlDoc.CreateNode(XmlNodeType.Attribute, "folder", ns);
+                                    attr.Value = folderspezial;
+
+                                    //Add the attribute to the document.
+                                    root1.Attributes.SetNamedItem(attr);
+
+
+                                    _ = sb.Append("\n" + " --> Sonderstatus gefunden -> in Ordner '" + folderspezial + "' hinzugefügt");
+
+                                    break;
+
+                            }
+
+                            xmlDoc.Save(path1);
+                        }
+
+
 
                     }
 
@@ -498,7 +558,7 @@ namespace Mimir
                     }
 
                     // ==================================================================================== FINI =============================================================================================
-                    _ = sb.Append("\n" + "=================  Fini " + filename + "  ================");
+                    _ = sb.Append("\n" + "==========================  Fini " + filename + "  ========================== \n");
                     // schreibe Infos in settingsdatei (für Ausgabefenster)
                     Properties.Settings.Default.syncxml_Info = sb.ToString();
                     // infos in log schreiben
@@ -506,7 +566,7 @@ namespace Mimir
                     {
                         StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
                         myWriter.WriteLine(sb.ToString());
-                        myWriter.Close(); // öffne die zu schreibende Datei
+                        myWriter.Close(); // schließe die zu schreibende Datei
                     }
                     else
                     {
@@ -567,7 +627,31 @@ namespace Mimir
                 MessageBox.Show("" + u);
             }
         }
+
+        private void Btn_showLog(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (Directory.Exists(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/"))
+                {
+                    Process.Start("explorer.exe", Properties.Settings.Default.optionsT1_destination + "log_sync_xml");
+                }
+                else
+                {
+                    Directory.CreateDirectory(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/");
+                    Process.Start("explorer.exe", Properties.Settings.Default.optionsT1_destination + "log_sync_xml");
+                }
+            }
+            catch (Exception u)
+            {
+                _ = MessageBox.Show("" + u);
+            }
+
+        }
+
         #endregion
+
+
 
 
         #region ==============================================running-VC==============================================
@@ -882,11 +966,6 @@ namespace Mimir
 
 
         #endregion
-
-
-
-
-
 
 
 
