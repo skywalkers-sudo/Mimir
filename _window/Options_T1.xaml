@@ -7,7 +7,7 @@
         xmlns:p="clr-namespace:Mimir.Properties"
         mc:Ignorable="d"
         Title="Options"
-        Height="300" Width="440" 
+        Height="316" Width="440" 
         WindowStartupLocation="CenterOwner" 
         >
 
@@ -16,7 +16,7 @@
     </Window.Background>
 
 
-    <Grid Margin="0,0,0,0">
+    <Grid Margin="0,0,0,1">
         <Grid.Background>
             <SolidColorBrush Color="#FF555555" Opacity="0.6"/>
         </Grid.Background>
@@ -144,7 +144,14 @@
                       IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=optionsT1_Feature5_check, Mode=TwoWay}"
                 />
 
-
+            <CheckBox x:Name="optionsT1_Feature6_des"
+                      Content="Schaftparametrik setzen"
+                      Grid.Row="3" Grid.Column="1" 
+                      Background="#FFD4D4D4" 
+                      Margin="5,0,0,0" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=optionsT1_Feature6_check, Mode=TwoWay}"
+                />
 
 
         </Grid>

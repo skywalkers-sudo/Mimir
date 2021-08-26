@@ -6,13 +6,18 @@ using System.Text;
 using System.Xml;
 using System.Reflection;
 using System.Data.SqlClient;
+using System.Data;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Net;
+
+using Mimir._window;
+using Mimir._database;
+using Mimir._class;
+
+using System.Text.RegularExpressions;
 using System.Windows.Navigation;
 using System.Threading;
-using System.Data;
-using Mimir._database;
-using System.Windows.Media;
-using Mimir._window;
-using System.Windows.Media.Imaging;
 
 namespace Mimir
 {
@@ -28,6 +33,7 @@ namespace Mimir
             InitializeComponent();
             SQL();
             Version();
+            HostInfo();
             SetProperties();
         }
 
@@ -50,9 +56,17 @@ namespace Mimir
         // ----------------------get Settings------------------------------
         public void SetProperties()
         {
-            // Icon für Window festlegen
-            Uri iconUri = new Uri("pack://application:,,,/_Images/ico/favicon.ico", UriKind.RelativeOrAbsolute);
-            this.Icon = BitmapFrame.Create(iconUri);
+            try
+            {
+                // Icon für Window festlegen
+                Uri iconUri = new Uri("pack://application:,,,/_Images/ico/favicon.ico", UriKind.RelativeOrAbsolute);
+                this.Icon = BitmapFrame.Create(iconUri);
+            }
+            catch (Exception u)
+            {
+                MessageBox.Show("" + u);
+            }
+
         }
         // -----------------SQL DATABASE CONNECTION------------------------
         public void SQL()
@@ -129,11 +143,34 @@ namespace Mimir
                 MessageBox.Show("" + u);
             }
         }
-        // -------------------------------Version--------------------------
         public void Version()
         {
-            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Properties.Settings.Default.Version = "Version: " + version;
+            try
+            {
+                string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                Properties.Settings.Default.Version = "Version: " + version;
+            }
+
+            catch (Exception u)
+            {
+                MessageBox.Show("" + u);
+            }
+        }
+        public void HostInfo()
+        {
+            try
+            {
+                string HostName = System.Net.Dns.GetHostName();
+                IPHostEntry hostInfo = System.Net.Dns.GetHostEntry(HostName);
+                string Ipv4Adresse = hostInfo.AddressList[2].ToString();
+                string Ipv6Adresse = hostInfo.AddressList[0].ToString();
+
+                HOST.Content = "Hostname: " + HostName + "\nIPv4: " + Ipv4Adresse + "\nIPv6: " + Ipv6Adresse;
+            }
+            catch (Exception u)
+            {
+                MessageBox.Show("" + u);
+            }
         }
         #endregion
 
@@ -221,9 +258,6 @@ namespace Mimir
                     // stringbuilder für Info
                     StringBuilder sb = new();
                     _ = sb.Append("===================  neues Wkz gefunden " + filename + "  ====================");
-
-                    string datetime = DateTime.Now.ToString();
-                    _ = sb.Append("\n --> " + datetime);
 
 
                     // ================================================================================FEATURE 1 CHECK========================================================================================
@@ -440,7 +474,7 @@ namespace Mimir
                                     _ = sb.Append("\n" + " --> Klasse " + noderead1.Attributes[0].Value + " gefunden -> Ordner aktualisiert");
                                     break;
 
-                                case "Entgratfäser (nur Winkel scheidend)":
+                                case "Entgratfräser (nur Winkel scheidend)":
                                     noderead1.Attributes[0].Value = "7303 - Entgratfräser (nur Winkel scheidend)";
                                     _ = sb.Append("\n" + " --> Klasse " + noderead1.Attributes[0].Value + " gefunden -> Ordner aktualisiert");
                                     break;
@@ -544,6 +578,63 @@ namespace Mimir
 
                     }
 
+                    // ================================================================================FEATURE 6 CHECK========================================================================================
+                    if (Properties.Settings.Default.optionsT1_Feature6_check == true)
+                    {
+                        XmlDocument xmlDoc = new();
+                        xmlDoc.Load(path1);             // xml laden
+
+                        XmlNode nominalD = xmlDoc.SelectSingleNode("/omtdx/tools/tools/tools/tool/param[@name='toolDiameter']");
+                        XmlNode shaftD = xmlDoc.SelectSingleNode("/omtdx/tools/tools/tools/tool/param[@name='toolDiameter']");
+                        XmlNode shaftm = xmlDoc.SelectSingleNode("/omtdx/tools/tools/tools/tool/param[@name='toolShaftType']");
+                        XmlNode wkzclass = xmlDoc.SelectSingleNode("/omtdx/tools/tools/tools/tool");
+
+                        var nominalDiameter = nominalD.Attributes["value"].Value;
+                        var shaftDiameter = shaftD.Attributes["value"].Value;
+                        var shaftmode = shaftm.Attributes["value"].Value;
+                        var toolclass = wkzclass.Attributes["type"].Value;
+
+
+                        if (nominalDiameter == shaftDiameter && shaftmode == "free")
+                        {
+
+                            switch (toolclass)
+                            {
+                                case "endMill":
+                                    shaftm.Attributes[1].Value = "parametric";
+                                    _ = sb.Append("\n" + " --> Schaftfräser erkannt & NominalØ = SchaftØ --> Schaft wird auf parametrik gesetzt ");
+                                    break;
+
+
+                                case "radiusMill":
+                                    shaftm.Attributes[1].Value = "parametric";
+                                    _ = sb.Append("\n" + " --> Radiusfräsr erkannt & NominalØ = SchaftØ --> Schaft wird auf parametrik gesetzt");
+                                    break;
+
+
+                                case "ballMill":
+                                    shaftm.Attributes[1].Value = "parametric";
+                                    _ = sb.Append("\n" + " --> Kugelkfräser erkannt & NominalØ = SchaftØ --> Schaft wird auf parametrik gesetzt");
+                                    break;
+
+
+                                default:
+
+                                    _ = sb.Append("\n" + " --> NominalØ = SchaftØ aber keine notwendige Klasse erkannt");
+                                    break;
+
+                            }
+                        }
+                        else
+                        {
+                            _ = sb.Append("\n" + " --> Schaftparametric wird nicht verwendet");
+                        }
+
+                        xmlDoc.Save(path1);
+                    }
+
+
+
                     // ================================================================================verschiebe Datei=======================================================================================
                     if (System.IO.Directory.Exists(TARGETXML))
                     {
@@ -557,24 +648,21 @@ namespace Mimir
                         _ = sb.Append("\n" + " --> Created Directory " + @TARGETXML + " and moved File");
                     }
 
+
+
                     // ==================================================================================== FINI =============================================================================================
                     _ = sb.Append("\n" + "==========================  Fini " + filename + "  ========================== \n");
+                    
                     // schreibe Infos in settingsdatei (für Ausgabefenster)
                     Properties.Settings.Default.syncxml_Info = sb.ToString();
+
                     // infos in log schreiben
-                    if (Directory.Exists(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/"))
-                    {
-                        StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
-                        myWriter.WriteLine(sb.ToString());
-                        myWriter.Close(); // schließe die zu schreibende Datei
-                    }
-                    else
-                    {
-                        Directory.CreateDirectory(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/");
-                        StreamWriter myWriter = File.CreateText(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/" + filnamewithoutExtension + ".log");
-                        myWriter.WriteLine(sb.ToString());
-                        myWriter.Close(); // öffne die zu schreibende Datei
-                    }
+                    string logcontent = (sb.ToString());
+                    // Erstelle Log-Objekt  (Parameter: Pfad/Dateiname/Inhalt)
+                    Log logger1 = new Log(@Properties.Settings.Default.optionsT1_destination + "log_sync_xml/", filnamewithoutExtension + ".log", logcontent);
+                    logger1.Logmethod();
+
+
 
                     anzahlxml--;
                 }
@@ -650,8 +738,6 @@ namespace Mimir
         }
 
         #endregion
-
-
 
 
         #region ==============================================running-VC==============================================
